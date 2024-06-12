@@ -37,7 +37,7 @@ def trap_mf(x: float, a: Point, b: Point, c: Point, d: Point) -> float:
     return result
 
 
-def trim_mf(x: float, a: Point, b: Point, c: Point) -> float:
+def tri_mf(x: float, a: Point, b: Point, c: Point) -> float:
     result = 0
     if x < a.x:
         result = 0
