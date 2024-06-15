@@ -48,8 +48,6 @@ def main() -> None:
 
         time_hist.append(t)
 
-    print(temp_hist)
-
     plt.title("Temperature vs Time Graph")
     plt.xlabel("Time (s)"); plt.ylabel("Temperature (F)")
     plt.plot(time_hist, temp_hist, marker=".")
