@@ -65,7 +65,7 @@ class Speed:
 
     def get_slow_val(self) -> float:
         return min(self.cover.get_partly_cloudy_mf(), self.temp.get_cool_mf())
-    
+
     def get_speed(self) -> None:
         slow_val = self.get_slow_val()
         fast_val = self.get_fast_val()
@@ -74,11 +74,13 @@ class Speed:
             p1 = Point(25, 1); p2 = Point(75)
         else:
             p1 = Point(25); p2 = Point(75, 1)
+
         self.breakpoint_slow = (slow_val - intercept(p1, p2)) / slope(p1, p2)
         self.breakpoint_fast = (fast_val - intercept(p1, p2)) / slope(p1, p2)
 
         self.xs = [x for x in range(1, 101)]
         self.ys = []
+
         for x in self.xs:
             if x < self.breakpoint_slow:
                 self.ys.append(slow_val)
@@ -87,19 +89,20 @@ class Speed:
             elif x >= self.breakpoint_fast:
                 self.ys.append(fast_val)
 
-        self.speed = ((slow_val*25) + (fast_val*75))/(slow_val + fast_val)
+        xy = [xs*ys for xs,ys in zip(self.xs, self.ys)]
+        self.speed = sum(xy)/sum(self.ys)
 
     def __str__(self) -> str:
         return f"""
-        FINAL SPEED: {self.speed}
         Fast: {self.get_fast_val()}
         Slow: {self.get_slow_val()}
-        Slow Breakpoint: {self.breakpoint_slow}
-        Fast Breakpoint: {self.breakpoint_fast}"""
+
+        Final Speed: {self.speed}"""
 
     def plot_speed(self) -> None:
         plt.title("Speed Graph")
         plt.plot(self.xs, self.ys)
+        plt.ylim(0, 1)
         plt.show()
 
 
